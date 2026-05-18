@@ -2,7 +2,6 @@ import { useState, type ReactNode } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Shapes, Eye, Route } from 'lucide-react'
 import DiagramPlaceholder from '../../components/project/DiagramPlaceholder'
-import MindmapToPriority from '../../components/MindmapToPriority'
 
 // ── Shared primitives ─────────────────────────────────────────────────────────
 function PhaseHeader({ index, title }: { index: number; title: string }) {

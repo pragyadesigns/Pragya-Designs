@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import DiagramPlaceholder from '../../components/project/DiagramPlaceholder'
 import StackedCards from '../../components/project/StackedCards'
 
 // ── Shared primitives ─────────────────────────────────────────────────────────
