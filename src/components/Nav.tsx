@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
@@ -27,14 +27,6 @@ export default function Nav() {
 
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-6">
-          <NavLink
-            to="/about"
-            className={({ isActive }) =>
-              `text-sm transition-opacity ${isActive ? 'text-ink' : 'text-muted hover:text-ink'}`
-            }
-          >
-            About
-          </NavLink>
           <a
             href="https://www.linkedin.com/in/pragyadesigns/"
             target="_blank"
@@ -66,13 +58,6 @@ export default function Nav() {
       {/* Mobile menu */}
       {menuOpen && (
         <div className="md:hidden border-t border-border bg-white px-6 py-4 flex flex-col gap-4">
-          <NavLink
-            to="/about"
-            className="text-sm text-muted hover:text-ink"
-            onClick={() => setMenuOpen(false)}
-          >
-            About
-          </NavLink>
           <a
             href="https://www.linkedin.com/in/pragyadesigns/"
             target="_blank"

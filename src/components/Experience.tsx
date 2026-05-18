@@ -35,26 +35,23 @@ export default function Experience() {
         {/* Experience group */}
         <Group label="Experience">
           {experience.map((role) => (
-            <div key={role.index} className="py-8 flex gap-5">
-              <span className="text-xs text-muted mt-0.5 w-5 shrink-0">
-                {role.index}
-              </span>
-              <div className="flex-1">
-                <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-3">
-                  <p className="text-sm font-medium text-ink">
+            <div key={role.index} className="py-8">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-ink mb-3">
                     {role.title}{' '}
                     <span className="font-normal text-muted">@ {role.org}</span>
                   </p>
-                  <p className="text-xs text-muted shrink-0">{role.period}</p>
+                  <ul className="space-y-1.5">
+                    {role.bullets.map((b) => (
+                      <li key={b} className="text-xs text-muted flex gap-2">
+                        <span className="mt-1.5 w-1 h-1 rounded-full bg-muted shrink-0" />
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <ul className="space-y-1.5">
-                  {role.bullets.map((b) => (
-                    <li key={b} className="text-xs text-muted flex gap-2">
-                      <span className="mt-1.5 w-1 h-1 rounded-full bg-muted shrink-0" />
-                      {b}
-                    </li>
-                  ))}
-                </ul>
+                <p className="text-xs text-muted shrink-0 sm:text-right sm:w-32 sm:pt-0.5">{role.period}</p>
               </div>
             </div>
           ))}
@@ -66,20 +63,27 @@ export default function Experience() {
         {/* Education group */}
         <Group label="Education">
           {education.map((entry) => (
-            <div key={entry.index} className="py-8 flex gap-5">
-              <span className="text-xs text-muted mt-0.5 w-5 shrink-0">
-                {entry.index}
-              </span>
-              <div className="flex-1">
-                <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
-                  <p className="text-sm font-medium text-ink">
+            <div key={entry.index} className="py-8">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-ink mb-3">
                     {entry.degree}{' '}
                     <span className="font-normal text-muted">
                       @ {entry.school}
                     </span>
                   </p>
-                  <p className="text-xs text-muted shrink-0">{entry.period}</p>
+                  {entry.bullets && entry.bullets.length > 0 && (
+                    <ul className="space-y-1.5">
+                      {entry.bullets.map((b) => (
+                        <li key={b} className="text-xs text-muted flex gap-2">
+                          <span className="mt-1.5 w-1 h-1 rounded-full bg-muted shrink-0" />
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
+                <p className="text-xs text-muted shrink-0 sm:text-right sm:w-32 sm:pt-0.5">{entry.period}</p>
               </div>
             </div>
           ))}

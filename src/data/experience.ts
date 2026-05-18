@@ -12,6 +12,7 @@ export interface EducationEntry {
   degree: string
   school: string
   period: string
+  bullets?: string[]
 }
 
 export const experience: Role[] = [
@@ -22,9 +23,9 @@ export const experience: Role[] = [
     location: 'Seattle, WA',
     period: 'Jul 2024 – Present',
     bullets: [
-      'Design React web apps for BI reporting platforms',
-      'Enhance traditional workflows through AI-powered solutions',
-      'Create product demo videos',
+      'Led a 3-month redesign of a partner-facing portal for a major technology client, delivering 10+ accessible, maintainable page templates in Microsoft Power Pages. Drove alignment across 10+ stakeholders and 13 developers to streamline partner access to go-to-market resources tied to FY26 business priorities.',
+      'Redesigned a senior living analytics platform for a major real estate client — scaling an executive-only Power BI dashboard into a React web app with 60+ pages that gave property-level directors real-time, actionable operational insights.',
+      'Developed an AI-powered session recommender for FabCon Community Conference 2025, used by 200+ attendees in its first week to generate personalized calendars and discover the most relevant sessions of the event.',
     ],
   },
   {
@@ -33,9 +34,7 @@ export const experience: Role[] = [
     org: 'Novartis',
     period: 'Jun 2023 – Aug 2023',
     bullets: [
-      'Design React web apps for BI reporting platforms',
-      'Enhance traditional workflows through AI-powered solutions',
-      'Create product demo videos',
+      'Redesigned the MicroStrategy dashboard serving 1000+ field reporting specialists, collaborating with design teams and product owners to transform complex business requirements into intuitive user interfaces.',
     ],
   },
   {
@@ -55,6 +54,9 @@ export const education: EducationEntry[] = [
     degree: 'Master of Science in Information (MSI)',
     school: 'University of Michigan',
     period: 'Aug 2022 – Apr 2024',
+    bullets: [
+      'Coursework: Contextual Inquiry and Consulting Foundations, Introduction to Interaction Design, Web Design, Pervasive Interaction Design, Usability Evaluation & Needs Assessment, Information Architecture, Building Interactive Applications, Information Visualization, AR/VR',
+    ],
   },
   {
     index: 2,

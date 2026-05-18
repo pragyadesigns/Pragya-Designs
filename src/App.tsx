@@ -4,7 +4,6 @@ import Footer from './components/Footer'
 import GridBackground from './components/GridBackground'
 import Home from './pages/Home'
 import ProjectPage from './pages/ProjectPage'
-import About from './pages/About'
 import Contact from './pages/Contact'
 
 export default function App() {
@@ -16,7 +15,6 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projects/:slug" element={<ProjectPage />} />
-          <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<Home />} />
         </Routes>
