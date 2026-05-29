@@ -5,10 +5,14 @@ interface Props {
 
 export default function ProblemStatement({ text, attribution }: Props) {
   return (
-    <div className="border-l-2 border-ink pl-6 py-1 my-2">
-      <p className="text-base md:text-lg font-light text-ink leading-relaxed italic">
-        "{text}"
-      </p>
+    <div className="my-2 space-y-4">
+      {text.split('\n\n').map((para, i) => (
+        <p key={i} className="text-base text-muted leading-relaxed">
+          {para.split('\n').map((line, j, arr) => (
+            <span key={j}>{line}{j < arr.length - 1 && <br />}</span>
+          ))}
+        </p>
+      ))}
       {attribution && (
         <p className="text-xs text-muted mt-3 not-italic">{attribution}</p>
       )}

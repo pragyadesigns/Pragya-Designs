@@ -59,11 +59,16 @@ export default function StackedCards({ cards, peek = 52, minHeight = 420 }: Prop
             ref={(el) => { measureRefs.current[cardIdx] = el }}
             className="absolute left-0 right-0 rounded-2xl border border-border bg-white overflow-hidden"
           >
-            <div className="px-5 py-3 border-b border-border">
-              <p className="text-sm font-medium text-ink">{card.title}</p>
+            <div className="px-5 py-4 border-b border-border flex items-start gap-3">
+              <span className="text-[10px] uppercase tracking-widest text-muted mt-0.5 shrink-0">
+                {String(cardIdx + 1).padStart(2, '0')}
+              </span>
+              <div>
+                <p className="text-sm font-medium text-ink">{card.title}</p>
+                <p className="text-sm text-muted leading-relaxed mt-1">{card.description}</p>
+              </div>
             </div>
             <div className="p-5">
-              <p className="text-sm text-ink leading-relaxed mb-4">{card.description}</p>
               {card.diagram && <div>{card.diagram}</div>}
             </div>
           </div>
@@ -96,26 +101,28 @@ export default function StackedCards({ cards, peek = 52, minHeight = 420 }: Prop
           >
             {/* Title strip — always visible */}
             <div
-              className={`px-5 py-3 border-b border-border flex items-center justify-between ${
+              className={`px-5 py-4 border-b border-border flex items-start justify-between gap-4 ${
                 isFront ? 'bg-stone-50' : 'bg-white'
               }`}
             >
-              <div className="flex items-center gap-3">
-                <span className="text-[10px] uppercase tracking-widest text-muted">
+              <div className="flex items-start gap-3">
+                <span className="text-[10px] uppercase tracking-widest text-muted mt-0.5 shrink-0">
                   {String(cardIdx + 1).padStart(2, '0')}
                 </span>
-                <p className="text-sm font-medium text-ink">{card.title}</p>
+                <div>
+                  <p className="text-sm font-medium text-ink">{card.title}</p>
+                  {isFront && <p className="text-sm text-muted leading-relaxed mt-1">{card.description}</p>}
+                </div>
               </div>
               {!isFront && (
-                <span className="text-[10px] uppercase tracking-widest text-muted/60">
+                <span className="text-[10px] uppercase tracking-widest text-muted/60 shrink-0 mt-0.5">
                   Click to view
                 </span>
               )}
             </div>
 
-            {/* Body — only matters visually when this card is in front */}
+            {/* Body — diagram only */}
             <div className="p-5">
-              <p className="text-sm text-ink leading-relaxed mb-4">{card.description}</p>
               {card.diagram && <div>{card.diagram}</div>}
             </div>
           </motion.div>

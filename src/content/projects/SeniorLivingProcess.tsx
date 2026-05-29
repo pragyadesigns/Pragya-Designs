@@ -2,12 +2,14 @@ import { useState } from 'react'
 import StackedCards from '../../components/project/StackedCards'
 
 // ── Shared primitives ─────────────────────────────────────────────────────────
-function PhaseHeader({ index, title }: { index: number; title: string }) {
+function PhaseHeader({ index, title, label }: { index: number; title: string; label?: string }) {
   return (
     <div className="mb-8">
-      <p className="text-[10px] uppercase tracking-widest text-muted mb-3">
-        Phase {String(index).padStart(2, '0')}
-      </p>
+      {label !== '' && (
+        <p className="text-[10px] uppercase tracking-widest text-muted mb-3">
+          {label ?? `Phase ${String(index).padStart(2, '0')}`}
+        </p>
+      )}
       <h3 className="text-2xl md:text-3xl font-light text-ink leading-tight tracking-tight max-w-3xl">
         {title}
       </h3>
@@ -20,7 +22,7 @@ function SubLabel({ children }: { children: React.ReactNode }) {
 }
 
 function Body({ children }: { children: React.ReactNode }) {
-  return <p className="text-sm text-muted leading-relaxed">{children}</p>
+  return <p className="text-base text-muted leading-relaxed">{children}</p>
 }
 
 function Card({ children, tone = 'white', className = '' }: { children: React.ReactNode; tone?: 'white' | 'stone' | 'ink'; className?: string }) {
@@ -38,7 +40,7 @@ function Card({ children, tone = 'white', className = '' }: { children: React.Re
 }
 
 // ── Business pillars diagram ──────────────────────────────────────────────────
-type Leaf = { title: string; description: string }
+type Leaf = { title: string; description: string; bgColor?: string }
 type SubPillar = { title: string; description: string; leaves: Leaf[] }
 type Pillar = { title: string; subs: SubPillar[] }
 
@@ -66,7 +68,7 @@ const PILLARS: Pillar[] = [
         title: 'Sell Units',
         description: 'Refine sales strategies to increase move-in rates without sacrificing revenue.',
         leaves: [
-          { title: 'Optimize Lead-to-Move-In Strategy', description: 'Accelerate the process from inquiry to move-in through better follow-ups and sales processes.' },
+          { title: 'Optimize Lead-to-Move-In Strategy', description: 'Accelerate the process from inquiry to move-in through better follow-ups and sales processes.', bgColor: '#f2ede4' },
           { title: 'Implement Dynamic Pricing Strategies', description: 'Use data about unit location, appliances, and other factors that impact demand to optimize rates in real time.' },
           { title: 'Strategically Offer Concessions', description: 'Offer limited discounts or incentives only when necessary to fill vacant units.' },
           { title: 'Prioritize Private-Pay', description: 'Once regulatory quotas are met, direct marketing and sales strategies toward private-pay prospects.' },
@@ -127,7 +129,7 @@ const PILLARS: Pillar[] = [
 
 function LeafCard({ leaf }: { leaf: Leaf }) {
   return (
-    <div className="rounded-lg border border-border bg-white p-3">
+    <div className="rounded-lg border border-border p-3" style={{ backgroundColor: leaf.bgColor ?? '#ffffff' }}>
       <p className="text-xs font-medium text-ink leading-snug mb-1">{leaf.title}</p>
       <p className="text-[11px] text-muted leading-snug">{leaf.description}</p>
     </div>
@@ -225,7 +227,6 @@ function PageTabs({ pages }: { pages: PageTab[] }) {
               <p className={`text-sm leading-snug mb-3 ${isActive ? 'font-semibold text-ink' : 'font-medium text-ink'}`}>
                 {p.title}
               </p>
-              {p.status && <StatusPill status={p.status} />}
             </button>
           )
         })}
@@ -257,6 +258,21 @@ function BusinessPillarsDiagram() {
 }
 
 // ── Main process node ─────────────────────────────────────────────────────────
+export function SeniorLivingTldr() {
+  return (
+    <div className="rounded-3xl border border-stone-200 overflow-hidden p-8 md:p-14 flex flex-col" style={{ backgroundColor: '#f2ede4' }}>
+      <p className="text-[10px] uppercase tracking-widest text-muted mb-5">TL;DR</p>
+      <p className="text-base md:text-lg font-light leading-relaxed text-muted">
+        A four-vertical Power BI report gave C-suite executives the <em>what</em> — but not the <em>how</em> or <em>why</em>.
+        Operators couldn't act on it. We rebuilt the product as a React web app with embedded Power BI, redesigned
+        60 pages under two parallel design systems, and restructured the data story around the questions operators
+        actually ask. The result: 10× more users reached, and a tool the client now uses as a live demo in new
+        operator onboarding.
+      </p>
+    </div>
+  )
+}
+
 export default function SeniorLivingProcess() {
   return (
     <div className="space-y-24">
@@ -266,22 +282,29 @@ export default function SeniorLivingProcess() {
           Intro sentence, then 3-column bento with diagram + sub-text
       ════════════════════════════════════════════════════════════════════ */}
       <section>
-        <PhaseHeader index={2} title="From off-the-shelf dashboard to custom web app" />
-        <Body>
-          Power BI Service gave users a rigid experience — fixed navigation, built-in filters, no room to
-          evolve. A React web app with embedded reports freed us from those constraints and opened the door
-          to a real product: one that can grow to include help resources, training, changelogs, and more.
-        </Body>
+        <PhaseHeader index={2} title="Moving from a single monolithic dashboard to a custom web app" label="the process" />
+        <div>
+          <div className="mb-6">
+            <Body>
+              By stepping outside the constraints of Power BI, we could build the experience from the ground up.
+              We created the pages and navigation in React, with a single Power BI dashboard embedded per page.
+            </Body>
+          </div>
+          <div className="rounded-2xl border border-border bg-stone-50 overflow-hidden">
+            <img src="/images/senior living/web-app-shell.png" alt="Custom web app shell" className="w-full h-auto" />
+          </div>
+        </div>
 
         <div className="mt-8">
+          <p className="text-base text-muted leading-relaxed mb-5">We built two parallel design systems — one for the web app, one for the embedded dashboards.</p>
           <StackedCards
-            peek={50}
+            peek={44}
             minHeight={440}
             cards={[
               {
-                title: 'Web app design system',
+                title: 'Crafting a minimal and clean design system',
                 description:
-                  'Used customized MUI components with a minimal white and blue color theme.',
+                  'The design system leveraged Material UI (MUI) as its foundation. The overall aesthetic was kept intentionally minimal and clean — a deliberate departure from the heavy, dark navigation the client had relied on previously.',
                 diagram: (
                   <img
                     src="/images/senior%20living/web-app-design-system.png"
@@ -291,9 +314,9 @@ export default function SeniorLivingProcess() {
                 ),
               },
               {
-                title: 'Power BI design system',
+                title: 'Using color to direct attention on dashboards',
                 description:
-                  'Reduced visual noise by reducing the amount of color in charts, using a primary navy blue to call out data points of most criticality. Customized interactive Power BI components like buttons and toggles to appear more clickable, along with defining various interactive states.',
+                  'We cut visual noise by reducing the amount of color in charts, using a primary navy blue to call out data points of most criticality.',
                 diagram: (
                   <img
                     src="/images/senior living/power-bi-design-system.png"
@@ -302,20 +325,24 @@ export default function SeniorLivingProcess() {
                   />
                 ),
               },
-              {
-                title: 'Working with design constraint',
-                description:
-                  'Pages are limited to 4–5 visuals with no vertical scroll on the page, thus every page tells a contained story or links out to another page for more details.',
-                diagram: (
-                  <img
-                    src="/images/senior living/working-with-design-constraint.png"
-                    alt="Working with design constraint"
-                    className="w-full h-auto rounded-lg"
-                  />
-                ),
-              },
             ]}
           />
+        </div>
+
+        <div className="mt-16">
+          <h3 className="text-2xl md:text-3xl font-light text-ink leading-tight tracking-tight mb-4">React navbars and tabs replaced the duct-taped button hacks in Power BI</h3>
+          <Body>In Power BI, side navigation was cobbled together using buttons and bookmarks — requiring users to manually click and expand each vertical just to reveal the subpages beneath it. We replaced this with a proper navbar featuring flyout menus that reveal sub-verticals on hover, making it effortless to grasp the full scope of the product at a glance.</Body>
+          <div className="mt-6 rounded-2xl border border-border bg-stone-50 overflow-hidden">
+            <img
+              src="/images/senior living/working-with-design-constraint.png"
+              alt="Working with design constraint"
+              className="w-full h-auto"
+            />
+          </div>
+          <div className="mt-10"><Body>Within each vertical, the original design toggled between summary and detail pages — burying detailed views behind an extra click. Users had to first activate the toggle, then select the specific page they wanted. We eliminated that friction entirely by promoting detail pages to the same level as summary pages, with all options visible and accessible through a clean horizontal tab navigation.</Body></div>
+          <div className="mt-6 rounded-2xl border border-border bg-stone-50 overflow-hidden">
+            <img src="/images/senior living/horizontal-tabs.png" alt="Horizontal tab navigation" className="w-full h-auto" />
+          </div>
         </div>
       </section>
 
@@ -324,22 +351,22 @@ export default function SeniorLivingProcess() {
           Two stacked sub-sections (text 1/3 + diagram 2/3)
       ════════════════════════════════════════════════════════════════════ */}
       <section>
-        <PhaseHeader index={1} title="Using business goals to shape workflows and dashboard structure" />
+        <PhaseHeader index={1} title="Using business goals to shape workflows and dashboard structure" label="" />
 
         {/* Sub-section: 4 pillars */}
         <div className="mb-10">
           <div className="max-w-3xl mb-6">
-            <SubLabel>Mapping the four pillars</SubLabel>
             <Body>
-              We began by mapping out real estate operational objectives (within each vertical) into 4 main
-              pillars — Maximize Occupancy, Optimize Revenue, Minimize Expenses, and Provide High Quality
-              Care and Maintain Resident Satisfaction. These corresponded to the existing business pillars —
-              Occupancy, Revenue Management, Clinical and Financials.
+              We grounded the work in strategy first — organizing the client's goals into four core business pillars:
+              Maximize Occupancy, Optimize Revenue, Minimize Expenses, and Deliver High-Quality Care and Resident Satisfaction.
             </Body>
           </div>
           <Card tone="stone" className="p-6">
             <BusinessPillarsDiagram />
           </Card>
+          <div className="mt-6 max-w-3xl">
+            <Body>Among them, optimizing the lead-to-move-in pipeline was a top priority. The CRM section within the People vertical was already a go-to for property teams tracking prospects through the sales funnel. Yet, the data wasn't driving timely decisions.</Body>
+          </div>
         </div>
       </section>
 
@@ -347,9 +374,9 @@ export default function SeniorLivingProcess() {
           PHASE 03 — Active Prospects (LARGEST — multiple sub-sections)
       ════════════════════════════════════════════════════════════════════ */}
       <section>
-        <PhaseHeader index={3} title="Redesigning the prospect journey" />
+        <PhaseHeader index={3} title="Redesigning the prospect journey" label="" />
 
-        <p className="text-base text-ink leading-relaxed max-w-3xl mb-10">
+        <p className="text-base text-muted leading-relaxed max-w-3xl mb-10">
           We restructured the pages within the People sub-vertical — removing unused pages, redesigning
           core views, and introducing new supplementary pages to support a more complete workflow.
         </p>
@@ -444,26 +471,26 @@ export default function SeniorLivingProcess() {
         </div>
 
         {/* Challenge — Data consistency */}
-        <Card className="p-6 border-l-4 border-l-ink">
-          <SubLabel>Challenge — data consistency</SubLabel>
-          <ul className="space-y-4">
+        <div>
+          <p className="text-[10px] uppercase tracking-widest text-muted mb-5">Operational Realities We Surfaced</p>
+          <ul className="space-y-6">
             {[
               {
-                header: 'Sales effectiveness data was unreliable',
-                sub: 'Call minutes — the proxy for sales effectiveness — were often left blank or rounded by sales staff in Yardi.',
+                header: 'Bulk-clearing inactive prospects was creating misleading spikes',
+                sub: 'Sales staff had been clearing inactive prospects all at once, distorting monthly trends — but surfacing that pattern in the dashboard gave operators the visibility they needed to course correct.',
               },
               {
-                header: 'Pipeline stages did not reflect reality',
-                sub: 'Sales staff sometimes skipped marking stage transitions, producing incorrect funnel data downstream.',
+                header: 'Sales staff sometimes skipped marking stage transitions',
+                sub: 'When we cross-filtered the data, prospects with completed tours were still showing up as new inquiries — exposing a habit of skipping stage updates that operators could now directly address.',
               },
             ].map((item) => (
               <li key={item.header}>
-                <p className="text-sm font-medium text-ink leading-snug">{item.header}</p>
-                <p className="text-sm text-muted leading-relaxed mt-1">{item.sub}</p>
+                <h3 className="text-lg md:text-xl font-medium text-ink leading-snug mb-2">{item.header}</h3>
+                <p className="text-base text-muted leading-relaxed">{item.sub}</p>
               </li>
             ))}
           </ul>
-        </Card>
+        </div>
       </section>
 
       {/* ════════════════════════════════════════════════════════════════════
@@ -471,9 +498,10 @@ export default function SeniorLivingProcess() {
           Two-column: text descriptions + diagram
       ════════════════════════════════════════════════════════════════════ */}
       <section>
-        <PhaseHeader index={4} title="Orienting new users with resources" />
+        <SubLabel>Supporting adoption</SubLabel>
+        <PhaseHeader index={4} title="Orienting new users with training guides" label="" />
 
-        <p className="text-base text-ink leading-relaxed max-w-3xl mb-8">
+        <p className="text-base text-muted leading-relaxed max-w-3xl mb-8">
           Not every user comes in as a data expert.
           <br />
           <br />
@@ -489,6 +517,24 @@ export default function SeniorLivingProcess() {
             className="w-full h-auto rounded-lg"
           />
         </Card>
+
+        <div className="mt-10">
+          <h3 className="text-xl md:text-2xl font-light text-ink leading-tight tracking-tight mb-3">Navigating the product with the Beginner Essentials guide</h3>
+          <div className="mb-6"><Body>The guide introduced features like the side nav, the product-level controls, filters and more.</Body></div>
+          <div className="rounded-2xl border border-border bg-stone-50 overflow-hidden">
+            <img src="/images/senior living/beginner-essentials-guide.png" alt="Beginner Essentials guide" className="w-full h-auto" />
+          </div>
+          <p className="text-xs text-muted mt-3">A page from the Beginner Essentials guide explaining table interactions</p>
+        </div>
+
+        <div className="mt-10">
+          <h3 className="text-xl md:text-2xl font-light text-ink leading-tight tracking-tight mb-3">Unlocking deeper insights with vertical-specific guides</h3>
+          <div className="mb-6"><Body>For key pages in each vertical, we authored guides that framed the key questions operators should be asking, called out interaction tips — like row sorting, conditional formatting, and cross-filtering — and outlined clear next steps to keep analysis moving.</Body></div>
+          <div className="rounded-2xl border border-border bg-stone-50 overflow-hidden">
+            <img src="/images/senior living/lost-leads.png" alt="Vertical-specific guide" className="w-full h-auto" />
+          </div>
+          <p className="text-xs text-muted mt-3">A page from the CRM guide explaining the Lost Prospects page</p>
+        </div>
       </section>
 
     </div>

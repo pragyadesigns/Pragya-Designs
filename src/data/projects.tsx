@@ -1,5 +1,5 @@
 import { Download, Zap, Sparkles, Unlink, KeyRound, RefreshCw, Users, FileText } from 'lucide-react'
-import SeniorLivingProcess from '../content/projects/SeniorLivingProcess'
+import SeniorLivingProcess, { SeniorLivingTldr } from '../content/projects/SeniorLivingProcess'
 import PartnerPortalProcess from '../content/projects/PartnerPortalProcess'
 
 export interface Metric {
@@ -41,6 +41,7 @@ export interface Project {
   processOverview?: string
   phases: PhasePill[]
   processNode: React.ReactNode
+  preContextNode?: React.ReactNode
   decisions: Decision[]
   images: string[]
   problemHighlights?: { icon: React.ReactNode; title: string; body: string }[]
@@ -63,11 +64,11 @@ export const projects: Project[] = [
     timeline: 'Oct 2025 – Present',
     tools: ['Figma', 'Power BI', 'React'],
     metrics: [
-      { value: '2×', label: 'more users reached — expanding from C-suite to property-level directors' },
+      { value: '10×', label: 'more users reached — expanding from C-suite to property-level directors' },
       { value: '60', label: 'pages redesigned under a unified design system' },
       { value: '↑', label: 'engagement — used in new operator onboarding and reengagement sessions' },
     ],
-    problem: "The client's operational data was trapped in a massive, four-vertical Power BI report. While functional for C-suite executives, it explained only the 'what' — not the 'how' or 'why'. The data was not actionable for operators trying to meet monthly targets.",
+    problem: "Our client managed senior living operations using Yardi — a property management platform handling accounting, leasing, maintenance, and day-to-day operations across their portfolio. Frustrated with Yardi's limited out-of-the-box analytics, they built their own reporting solution: pulling Yardi data into Snowflake, developing a custom semantic model, and surfacing insights through Power BI.\n\nThe result worked well at the executive level — but only told leadership what was happening, not how or why.\n\nFor operators trying to hit monthly targets, the data simply wasn't actionable. And with the client planning to eventually roll the solution out to hundreds of property-level directors and on-site staff, a single monolithic Power BI report wasn't going to scale.",
     roleMap: {
       owned: ['UX Research', 'Information Architecture', 'User Workflow Mapping', 'Wireframing', 'Prototyping', 'Design System', 'Power BI Theme', 'Product Management'],
       collaborated: ['Engineering', 'Data Engineering', 'Stakeholder Alignment'],
@@ -81,6 +82,7 @@ export const projects: Project[] = [
       { phase: 'Orienting new users with resources' },
     ],
     processNode: <SeniorLivingProcess />,
+    preContextNode: <SeniorLivingTldr />,
     decisions: [],
     images: [],
     outcomeHighlights: [

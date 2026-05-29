@@ -87,7 +87,7 @@ export default function ProjectPage() {
         <h1 className="text-3xl md:text-5xl font-light text-ink leading-tight tracking-tight mb-4 max-w-3xl">
           {project.title}
         </h1>
-        <p className="text-base md:text-lg text-muted leading-relaxed max-w-2xl mb-8">{project.tagline}</p>
+        <p className="text-base md:text-lg font-light text-muted leading-relaxed max-w-2xl mb-8">{project.tagline}</p>
         <div className="flex flex-wrap gap-x-8 gap-y-3 text-xs text-muted">
           <span><span className="text-[10px] uppercase tracking-widest text-muted/60 mr-2">Role</span><span className="text-ink">{project.role}</span></span>
           <span><span className="text-[10px] uppercase tracking-widest text-muted/60 mr-2">Timeline</span><span className="text-ink">{project.timeline}</span></span>
@@ -118,6 +118,11 @@ export default function ProjectPage() {
           ))}
         </div>
       </motion.div>
+
+      {/* ── Per-project pre-context slot (e.g. TL;DR + KPIs) ─────────────── */}
+      {project.preContextNode && (
+        <div className="mb-24">{project.preContextNode}</div>
+      )}
 
       {/* ── Problem — full-width loose treatment ──────────────────────────── */}
       <section className="mb-24">
