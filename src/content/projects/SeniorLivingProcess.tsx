@@ -172,13 +172,11 @@ const PILLAR_SUMMARIES: Record<string, string> = {
 }
 
 type PageTag = 'New' | 'Redesigned' | 'Unchanged'
-type PageStatus = 'Live' | 'Not Live'
 type PageTab = {
   title: string
   body: React.ReactNode
   image: string
   tag?: PageTag
-  status?: PageStatus
 }
 
 function PageTagPill({ tag }: { tag: PageTag }) {
@@ -189,15 +187,6 @@ function PageTagPill({ tag }: { tag: PageTag }) {
   )
 }
 
-function StatusPill({ status }: { status: PageStatus }) {
-  const isLive = status === 'Live'
-  return (
-    <span className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest font-medium text-muted">
-      <span className={`w-1.5 h-1.5 rounded-full ${isLive ? 'bg-emerald-500' : 'bg-stone-400'}`} />
-      {status}
-    </span>
-  )
-}
 
 function PageTabs({ pages }: { pages: PageTab[] }) {
   const [activeIdx, setActiveIdx] = useState(0)
@@ -401,7 +390,6 @@ export default function SeniorLivingProcess() {
                 ),
                 image: '/images/senior living/summary.jpg',
                 tag: 'Redesigned',
-                status: 'Not Live',
               },
               {
                 title: 'Lost Prospects',
@@ -417,7 +405,6 @@ export default function SeniorLivingProcess() {
                 ),
                 image: '/images/senior living/lost-prospects.jpg',
                 tag: 'New',
-                status: 'Live',
               },
               {
                 title: 'Active Prospects',
@@ -434,7 +421,6 @@ export default function SeniorLivingProcess() {
                 ),
                 image: '/images/senior living/active-prospects.jpg',
                 tag: 'Redesigned',
-                status: 'Live',
               },
               {
                 title: 'Tours & Deposits',
@@ -450,7 +436,6 @@ export default function SeniorLivingProcess() {
                 ),
                 image: '/images/senior living/tours-and-deposits.jpg',
                 tag: 'New',
-                status: 'Not Live',
               },
               {
                 title: 'Call Log',
@@ -464,7 +449,6 @@ export default function SeniorLivingProcess() {
                 ),
                 image: '/images/senior living/call-log.jpg',
                 tag: 'New',
-                status: 'Not Live',
               },
             ]}
           />
