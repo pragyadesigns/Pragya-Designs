@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import StackedCards from '../../components/project/StackedCards'
 import DiagramPlaceholder from '../../components/project/DiagramPlaceholder'
 
@@ -16,10 +15,6 @@ function PhaseHeader({ index, title, label }: { index: number; title: string; la
       </h2>
     </div>
   )
-}
-
-function SubLabel({ children }: { children: React.ReactNode }) {
-  return <p className="text-label-12 text-muted-foreground mb-3">{children}</p>
 }
 
 function Body({ children }: { children: React.ReactNode }) {
@@ -80,20 +75,6 @@ function DashboardPage({ name, image, children }: { name: string; image: string;
       <div className="mt-8">
         <img src={image} alt={`${name} — sales counselor dashboard`} className="w-full h-auto block" />
       </div>
-    </div>
-  )
-}
-
-function Card({ children, tone = 'white', className = '' }: { children: React.ReactNode; tone?: 'white' | 'stone' | 'ink'; className?: string }) {
-  const toneClass =
-    tone === 'stone'
-      ? 'bg-muted border-border'
-      : tone === 'ink'
-      ? 'bg-foreground border-foreground text-background'
-      : 'bg-card border-border'
-  return (
-    <div className={`rounded-2xl border overflow-hidden ${toneClass} ${className}`}>
-      {children}
     </div>
   )
 }
@@ -228,67 +209,6 @@ const PILLAR_SUMMARIES: Record<string, string> = {
   'Optimize Revenue': 'Make sure existing residents are billed at the right rates for both rent and care.',
   'Provide High Quality Care': 'Protect residents through proactive fall prevention, alert response, and timely assessments.',
   'Minimize Expenses': 'Reduce bad debt by enforcing billing, policies, and overdue payment follow-up.',
-}
-
-type PageTag = 'New' | 'Redesigned' | 'Unchanged'
-type PageTab = {
-  title: string
-  body: React.ReactNode
-  image: string
-  tag?: PageTag
-}
-
-function PageTagPill({ tag }: { tag: PageTag }) {
-  return (
-    <span className="text-label-12 border border-foreground bg-foreground text-background rounded-full px-2 py-0.5">
-      {tag}
-    </span>
-  )
-}
-
-
-function PageTabs({ pages }: { pages: PageTab[] }) {
-  const [activeIdx, setActiveIdx] = useState(0)
-  const active = pages[activeIdx]
-  return (
-    <div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 mb-6">
-        {pages.map((p, i) => {
-          const isActive = i === activeIdx
-          return (
-            <button
-              key={p.title}
-              type="button"
-              onClick={() => setActiveIdx(i)}
-              className={`text-left rounded-xl border p-4 transition-all ${
-                isActive
-                  ? 'border-foreground bg-card shadow-md ring-1 ring-foreground/10'
-                  : 'border-border bg-card hover:border-foreground/40 hover:shadow-xs'
-              }`}
-            >
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-label-12 text-muted-foreground/70">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                {p.tag && <PageTagPill tag={p.tag} />}
-              </div>
-              <p className={`text-copy-14 mb-3 ${isActive ? ' text-foreground' : ' text-foreground'}`}>
-                {p.title}
-              </p>
-            </button>
-          )
-        })}
-      </div>
-      <div className="text-copy-14 text-muted-foreground max-w-3xl mb-5">{active.body}</div>
-      <Card tone="stone" className="p-6">
-        <img
-          src={active.image}
-          alt={active.title}
-          className="w-full h-auto rounded-lg"
-        />
-      </Card>
-    </div>
-  )
 }
 
 function BusinessPillarsDiagram() {
